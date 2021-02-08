@@ -1,0 +1,285 @@
+/* Global styles */
+
+:root {
+    --color-blue: #363663;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f7f7f7;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+    width: min(90vw, 800px);
+    margin: auto;
+
+}
+
+/*Titles*/
+h2 {
+    margin-top: 3.2rem;
+    margin-bottom: 0.8rem;
+    color: var(--color-blue);
+    font-weight: 400;
+}
+
+/*Header styles*/
+header {
+    background: #2da4a2;
+    padding: 2rem 0 10rem;
+    text-align: center;
+}
+
+header #logo {
+    color: #fff;
+    font-weight: 100;
+}
+
+/*Balance styles*/
+#balance {
+    margin-top: -6rem;
+}
+
+#balance h2 {
+    color: #fff;
+    margin-top: 0;
+}
+
+/*Links and buttons*/
+a {
+    color: #49aa26;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #3dd705;
+}
+
+.button.new {
+    margin-bottom: .8rem;
+    display: inline-block;
+}
+
+button {
+    width: 100%;
+    height: 50px;
+    border: none;
+    color: #fff;
+    background-color: #49aa26;
+    font-family: Poppins;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 100%;
+}
+
+button:hover {
+    background: #3dd705;
+}
+
+.button.cancel {
+    color: #e92929;
+    border: 2px solid #e92929;
+    border-radius: 0.25rem;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+}
+
+.button.cancel:hover {
+    background: #e92929;
+    color: #fff;
+    opacity: 1;
+}
+/*Cards*/
+
+.cards_item {
+    background: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 0.25rem;
+    margin-bottom: 2rem;
+    color: var(--color-blue);
+}
+
+.cards_item h3 {
+    font-weight: 400;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cards_item h3 img {
+    border: 1px solid #000;
+    border-radius: 25px;
+    padding: 0.25em;
+}
+
+.cards_item p {
+    font-size: 2rem;
+    line-height: 3rem;
+    margin-top: 1rem;
+}
+
+.cards_item.total {
+    background: #68ec39;
+    color: #fff;
+}
+
+/*Transactions Table*/
+#transactions {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
+
+#data-table {
+    border-spacing: 0 0.5rem;
+    color: #969cb3;
+    width: 100%;
+}
+
+#data-table tbody tr {
+    opacity: 0.7;
+}
+#data-table tbody tr:hover {
+    opacity: 1;
+}
+
+#data-table th {
+    background: #fff;
+    padding: 1rem 2rem;
+    font-weight: 400;
+    text-align: left;
+}
+
+#data-table td {
+    background: #fff;
+    padding: 1rem 2rem;
+    font-weight: normal;
+}
+
+#data-table thead tr th:first-child, #data-table tbody tr td:first-child {
+    border-radius: 0.25rem 0 0 0.25rem;
+}
+
+#data-table thead tr th:last-child, #data-table tbody tr td:last-child {
+    border-radius: 0rem 0.25rem 0.25rem 0;
+}
+
+td.description {
+    color: var(--color-blue);
+}
+
+td.income {
+    color: #12a454;
+}
+
+td.expense {
+    color: #e92929;
+}
+
+td.delete_transaction img {
+    width: 20px;
+}
+/*Modal*/
+.modal_overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.modal_overlay.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 9;
+}
+
+.modal {
+    background-color: #f0f2f5;
+    padding: 2.5rem;
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 0.25rem;
+}
+
+/*Form*/
+#form {
+    max-width: 500px;
+}
+
+#form h2 {
+    margin-top: 0;
+}
+
+#form form input {
+    border: none;
+    border-radius: 0.2rem;
+    padding: 0.5rem;
+    width: 100%;
+
+}
+
+.input_group {
+    margin-top: 0.8rem;
+}
+
+.input_group small {
+    opacity: 0.4;
+}
+
+.input_group.actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.input_group.actions .button, .input_group.actions button {
+    width: 48%;
+}
+
+/*Footer*/
+footer {
+    text-align: center;
+    padding: 4rem 0 2rem;
+    color: var(--color-blue);
+    opacity: 0.6;
+}
+
+/*Accessibility*/
+.sr_only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/*Responsive*/
+@media (min-width: 800px) {
+    #balance .cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1em;
+    }
+}
