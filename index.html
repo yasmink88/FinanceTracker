@@ -22,12 +22,12 @@
     <main class="container">
 
         <section id="balance">
-            <h2 class="sr_only">Balanço</h2>
+            <h2 class="sr_only">Balance</h2>
 
             <div class="cards">
                 <div class="cards_item">
                     <h3>
-                        <span>Entradas</span>
+                        <span>Income</span>
                         <img src="./assets/up-arrow.svg" alt="icone de entradas" width="20px">
                     </h3>
                     <p id="incomeDisplay"></p>
@@ -35,7 +35,7 @@
 
                 <div class="cards_item">
                     <h3>
-                        <span>Saidas</span>
+                        <span>Expenses</span>
                         <img src="./assets/down-arrow.svg" alt="icone de saidas" width="20px">
                     </h3>
                     <p id="expenseDisplay"></p>
@@ -50,15 +50,15 @@
         </section>
 
         <section id="transactions">
-            <h2 class="sr_only">Transações</h2>
+            <h2 class="sr_only">Transactions</h2>
             <a href="#" onclick="modal.open()" class="button new">+ New Transaction</a>
 
             <table id="data-table">
                 <thead>
                     <tr>
-                        <th>Descrição</th>
-                        <th>Valor</th>
-                        <th>Data</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Date</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -78,8 +78,19 @@
                     <h2>New Transaction</h2>
                     <form action="" onsubmit="form.submit(event)">
                         <div class="input_group">
-                            <label class="sr_only" for="date">Transaction Description</label>
+                            <label class="sr_only" for="date">Description</label>
                             <input type="text" name="date" id="description" placeholder="Transaction Description" />
+                        </div>
+                        <div class="input_group">
+                            <label class="sr_only" for="date">Category</label>
+                            <select name="category" id="category">
+                                <option value="select" disabled selected>Select category</option>
+                                <option value="Utilities">Utilities</option>
+                                <option value="Home Office">Home Office</option>
+                                <option value="Healthcare">Healthcare</option>
+                                <option value="Household">Household</option>
+                                <option value="Income">Income</option>
+                            </select>
                         </div>
                         <div class="input_group">
                             <label class="sr_only" for="amount">Amount </label>

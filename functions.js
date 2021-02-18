@@ -16,7 +16,7 @@ const storage = {
 
     
     get(){
-        localStorage.clear()
+       localStorage.clear()
         return JSON.parse(localStorage.getItem("dev.finances:transactions")) || []
     },
 
@@ -63,8 +63,8 @@ const transcationsCalc = {
 
     total() {
         return transcationsCalc.income() + transcationsCalc.expense()
+    },
 
-    }
 }
 
 const dom = {
@@ -77,16 +77,15 @@ const dom = {
        tr.dataset.index = index
     },
 
+
     innerHTMLTransaction(transaction, index) {
 
         const cssClass = transaction.amount > 0 ? "income" : "expense"
 
         const amount = utils.formatCurrency(transaction.amount)
-        
-
 
         const html = `
-            <td class="description">${transaction.description}</td>
+            <td class="description">${transaction.description} <span class="category">${transaction.category}</span></td>
             <td class="${cssClass}">${amount}</td>
             <td class="date">${transaction.date}</td>
             <td class="delete_transaction"><img src="./assets/minus.svg" alt="Delete transaction" onclick="transcationsCalc.remove(${index})"></td>
@@ -125,7 +124,7 @@ const utils = {
     },
 
     formatCurrency(value) {
-        const sign = Number(value) < 0 ? "-" : ""
+        const sign = Number(value) < 0 ? "-" : "+"
         value = String(value).replace(/\D/g, "")
         value = Number(value) / 100
         value = value.toLocaleString("pt-BR", {
@@ -139,22 +138,25 @@ const utils = {
 
 const form = {
     description: document.querySelector('#description'),
+    category: document.querySelector('#category'),
     amount: document.querySelector('#amount'),
     date: document.querySelector('#date'),
 
     getValues() {
         return {
             description: form.description.value,
+            category: form.category.value,
             amount: form.amount.value,
             date: form.date.value
         }
     },
 
     validateFields() {
-        const {description, amount, date} = form.getValues()
+        const {description, category, amount, date} = form.getValues()
 
         if(
             description.trim() === "" ||
+            category.trim() === "" ||
             amount.trim() === "" ||
             date.trim() === ""
             ) {
@@ -164,12 +166,13 @@ const form = {
     },
 
     formatValues() {
-        let {description, amount, date} = form.getValues()
+        let {description, category, amount, date} = form.getValues()
         amount = utils.formatAmount(amount)
         date = utils.formatDate(date)
 
         return {
             description,
+            category,
             amount,
             date
         }
@@ -177,6 +180,7 @@ const form = {
 
     clearFields(){
         form.description.value = ""
+        form.category.value = ""
         form.amount.value = ""
         form.date.value = ""
 
