@@ -1,4 +1,3 @@
-
 const modal = {
     open() {
         //open modal
@@ -63,8 +62,7 @@ const transcationsCalc = {
 
     total() {
         return transcationsCalc.income() + transcationsCalc.expense()
-    },
-
+    }
 }
 
 const dom = {
@@ -81,7 +79,7 @@ const dom = {
     innerHTMLTransaction(transaction, index) {
 
         const cssClass = transaction.amount > 0 ? "income" : "expense"
-
+        
         const amount = utils.formatCurrency(transaction.amount)
 
         const html = `
@@ -98,7 +96,7 @@ const dom = {
         document.getElementById('expenseDisplay').innerHTML = utils.formatCurrency(transcationsCalc.expense())
         document.getElementById('totalDisplay').innerHTML = utils.formatCurrency(transcationsCalc.total())
     },
-
+    
     clearTransactions() {
         dom.transactionsContainer.innerHTML = ""
     }
