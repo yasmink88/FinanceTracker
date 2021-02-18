@@ -13,9 +13,9 @@ const modal = {
 
 const storage = {
 
-    
-    get(){
-       localStorage.clear()
+
+    get() {
+        localStorage.clear()
         return JSON.parse(localStorage.getItem("dev.finances:transactions")) || []
     },
 
@@ -27,8 +27,8 @@ const storage = {
 
 const transcationsCalc = {
     all: storage.get(),
-    
-    add(transaction){
+
+    add(transaction) {
         transcationsCalc.all.push(transaction)
         app.reload()
     },
@@ -40,8 +40,8 @@ const transcationsCalc = {
 
     income() {
         let sumIncome = 0;
-        transcationsCalc.all.forEach(function(transaction){
-            if(transaction.amount > 0) {
+        transcationsCalc.all.forEach(function (transaction) {
+            if (transaction.amount > 0) {
                 sumIncome += transaction.amount;
             }
 
@@ -51,8 +51,8 @@ const transcationsCalc = {
 
     expense() {
         let sumExpense = 0;
-        transcationsCalc.all.forEach(function(transaction){
-            if(transaction.amount < 0) {
+        transcationsCalc.all.forEach(function (transaction) {
+            if (transaction.amount < 0) {
                 sumExpense += transaction.amount;
             }
 
@@ -71,15 +71,15 @@ const dom = {
     addTransaction(transaction, index) {
         const tr = document.createElement('tr')
         tr.innerHTML = dom.innerHTMLTransaction(transaction, index)
-       dom.transactionsContainer.appendChild(tr)
-       tr.dataset.index = index
+        dom.transactionsContainer.appendChild(tr)
+        tr.dataset.index = index
     },
 
 
     innerHTMLTransaction(transaction, index) {
 
         const cssClass = transaction.amount > 0 ? "income" : "expense"
-        
+
         const amount = utils.formatCurrency(transaction.amount)
 
         const html = `
@@ -88,7 +88,7 @@ const dom = {
             <td class="date">${transaction.date}</td>
             <td class="delete_transaction"><img src="./assets/minus.svg" alt="Delete transaction" onclick="transcationsCalc.remove(${index})"></td>
         `
-            return html
+        return html
     },
 
     updateBalance() {
@@ -96,9 +96,28 @@ const dom = {
         document.getElementById('expenseDisplay').innerHTML = utils.formatCurrency(transcationsCalc.expense())
         document.getElementById('totalDisplay').innerHTML = utils.formatCurrency(transcationsCalc.total())
     },
-    
+
     clearTransactions() {
         dom.transactionsContainer.innerHTML = ""
+    },
+
+    totalColor() {
+        let changeColor = transcationsCalc.total()
+
+        function cssChangeColor() {
+            if (changeColor < 0) {
+                document.getElementById("total_balance").classList.remove('total_green')
+                document.getElementById("total_balance").classList.add('total_red')
+            } else if (changeColor == 0) {
+                document.getElementById("total_balance").classList.remove('total_red')
+                document.getElementById("total_balance").classList.remove('total_green')
+            } else {
+                document.getElementById("total_balance").classList.remove('total_red')
+                document.getElementById("total_balance").classList.add('total_green')
+            }
+        }
+
+        return cssChangeColor()
     }
 }
 
@@ -115,7 +134,7 @@ const utils = {
     //     value = Number(value) * 100
     //     return value
     // },
-    
+
     formatAmount(value) {
         value = value * 100
         return Math.round(value)
@@ -129,7 +148,7 @@ const utils = {
             style: "currency",
             currency: "BRL"
         })
-        
+
         return sign + value
     }
 }
@@ -150,21 +169,21 @@ const form = {
     },
 
     validateFields() {
-        const {description, category, amount, date} = form.getValues()
+        const { description, category, amount, date } = form.getValues()
 
-        if(
+        if (
             description.trim() === "" ||
             category.trim() === "" ||
             amount.trim() === "" ||
             date.trim() === ""
-            ) {
-                throw new Error("Fields can't be empty!")
-            }
-    
+        ) {
+            throw new Error("Fields can't be empty!")
+        }
+
     },
 
     formatValues() {
-        let {description, category, amount, date} = form.getValues()
+        let { description, category, amount, date } = form.getValues()
         amount = utils.formatAmount(amount)
         date = utils.formatDate(date)
 
@@ -176,7 +195,7 @@ const form = {
         }
     },
 
-    clearFields(){
+    clearFields() {
         form.description.value = ""
         form.category.value = ""
         form.amount.value = ""
@@ -193,8 +212,8 @@ const form = {
             transcationsCalc.add(transaction)
             form.clearFields()
             modal.close()
-        } 
-        
+        }
+
         catch (error) {
             alert(error.message)
         }
@@ -205,6 +224,7 @@ const app = {
     init() {
         transcationsCalc.all.forEach(dom.addTransaction)
         dom.updateBalance()
+        dom.totalColor()
         storage.set(transcationsCalc.all)
     },
 

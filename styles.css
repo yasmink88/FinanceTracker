@@ -18,7 +18,7 @@ body {
 }
 
 .container {
-    width: min(90vw, 800px);
+    width: min(90vw, 900px);
     margin: auto;
 
 }
@@ -33,7 +33,7 @@ h2 {
 
 /*Header styles*/
 header {
-    background: #2da4a2;
+    background: #272727;
     padding: 2rem 0 10rem;
     text-align: center;
 }
@@ -130,11 +130,15 @@ button:hover {
     margin-top: 1rem;
 }
 
-.cards_item.total {
+.cards_item.total_green {
     background: #68ec39;
     color: #fff;
 }
 
+.cards_item.total_red {
+    background: #e92929;
+    color: #fff;
+}
 /*Transactions Table*/
 #transactions {
     display: block;
@@ -270,7 +274,7 @@ td.delete_transaction img {
 /*Footer*/
 footer {
     text-align: center;
-    padding: 4rem 0 2rem;
+    padding: 4rem 0.5rem 2rem;
     color: var(--color-blue);
     opacity: 0.6;
 }
